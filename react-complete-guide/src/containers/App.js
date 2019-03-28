@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import Person from "./Person/Person";
 import "./App.css";
+import Persons from "../components/Persons/Persons";
+import Cockpit from "../components/Cockpit/Cockpit";
 
 class App extends Component {
   state = {
@@ -52,39 +53,22 @@ class App extends Component {
     let persons = null;
     if (this.state.showPersons) {
       persons = (
-        <div>
-          {this.state.persons.map((person, index) => {
-            return (
-              <Person
-                key={person.id}
-                name={person.name}
-                age={person.age}
-                click={() => this.deletePersonHandler(index)}
-                changed={event => this.nameChangeHandler(event, person.id)}
-              >
-                My hobbies: Games
-              </Person>
-            );
-          })}
-        </div>
+        <Persons
+          persons={this.state.persons}
+          clicked={this.deletePersonHandler}
+          changed={this.nameChangeHandler}
+        />
       );
       style.backgroundColor = "red";
     }
-    let styles = [];
-    if (this.state.persons.length <= 1) {
-      styles.push("red");
-    }
-    if (this.state.persons.length <= 0) {
-      styles.push("bold");
-    }
-    styles = styles.join(" ");
     return (
       <div className="App">
-        <h1>Hi, I'm a react project!</h1>
-        <p className={styles}>This is a react app!</p>
-        <button onClick={this.toggleNameHandler} style={style}>
-          Switch Name
-        </button>
+        <Cockpit
+          persons={this.state.persons}
+          showPersons={this.state.showPersons}
+          style={style}
+          clicked={this.toggleNameHandler}
+        />
         {persons}
       </div>
     );
