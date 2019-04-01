@@ -12,12 +12,7 @@ class App extends Component {
     test: "test",
     showPersons: false
   };
-  // switchNameHandler = newName => {
-  //   // console.log("clicked");
-  //   this.setState({
-  //     persons: [{ name: newName, age: "29" }]
-  //   });
-  // };
+
   nameChangeHandler = (event, id) => {
     const personIndex = this.state.persons.findIndex(p => {
       return p.id === id;
@@ -30,10 +25,12 @@ class App extends Component {
       persons: persons
     });
   };
-  toggleNameHandler = () => {
+
+  togglePersonsHandler = () => {
     const doesShow = this.state.showPersons;
     this.setState({ showPersons: !doesShow });
   };
+
   deletePersonHandler = index => {
     const persons = [...this.state.persons];
     persons.splice(index, 1);
@@ -67,7 +64,7 @@ class App extends Component {
           persons={this.state.persons}
           showPersons={this.state.showPersons}
           style={style}
-          clicked={this.toggleNameHandler}
+          clicked={this.togglePersonsHandler}
         />
         {persons}
       </div>
