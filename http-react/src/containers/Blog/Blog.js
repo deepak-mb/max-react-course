@@ -14,17 +14,23 @@ class Blog extends Component {
     this.setState({ selectedPostId: id });
   };
   componentDidMount() {
-    axios.get("https://jsonplaceholder.typicode.com/posts").then(response => {
-      const posts = response.data.slice(0, 4);
-      const updatedPosts = posts.map(post => {
-        return {
-          ...post,
-          author: "Max"
-        };
+    axios
+      .get("/posts")
+      .then(response => {
+        const posts = response.data.slice(0, 4);
+        const updatedPosts = posts.map(post => {
+          return {
+            ...post,
+            author: "Max"
+          };
+        });
+        this.setState({ posts: updatedPosts });
+        // console.log(response.data);
+      })
+      .catch(error => {
+        // alert(error);
+        // console.log(error);
       });
-      this.setState({ posts: updatedPosts });
-      console.log(response.data);
-    });
   }
   render() {
     const posts = this.state.posts.map(post => {
